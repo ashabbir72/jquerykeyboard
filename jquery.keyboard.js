@@ -91,12 +91,15 @@ jQuery.keyboard = {
 	checkBinds : function ($obj) {
 		var funcs = $obj.keyboardOfficeFuncs;
 		var check = jQuery.keyboard.checkKeys;
+		var oldkbfn = $obj.keyboardfn;
 		for (var i in funcs) {
 			var bind = funcs[i];
 			if (bind && check($obj, bind.keys, bind.single)) {
-				bind.fn($obj);
+				$obj.keyboardfn = bind.fn;
+				$obj.keyboardfn()
 			}
 		}
+		$obj.keyboardfn = oldkbfn;
 		return true;
 	},
 	keys : {

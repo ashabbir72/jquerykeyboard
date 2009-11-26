@@ -12,8 +12,8 @@ $(document).ready(function(){
 	var log = function (text) {
 		result.html(result.html() + text + '<br />');
 	}
-	var sendmsg = function ($this) {
-		log('Сообщение отправленно: «' + $this.val() + '»');
+	var sendmsg = function () {
+		log('Сообщение отправленно: «' + $(this).val() + '»');
 	};
 	$(document)
 		.keyboard('5', function () {
