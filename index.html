@@ -26,16 +26,16 @@ $(document).ready(function(){
 			log('just xcv');
 		}, 1);
 
-	$textarea.keyboard('ctrl+enter', sendmsg, 1);
+	$textarea.keyboard('ctrl enter', sendmsg, 1);
 
 	$('#textarea input[type=submit]').click(function () {
 		var $this = $(this);
 		if ($this.attr('act') == 'unbind') {
 			$this.val('Активировать отправление по ctrl-enter').attr('act', 'bind');
-			$textarea.keyboard(['ctrl', 'enter']);
+			$textarea.keyboard('ctrl enter');
 		} else {
 			$this.val('Отменить отправление по ctrl-enter').attr('act', 'unbind');
-			$textarea.keyboard(['ctrl', 'enter'], sendmsg, 1);
+			$textarea.keyboard('ctrl enter', sendmsg, 1);
 		}
 	});
 });
