@@ -26,7 +26,7 @@ $(document).ready(function(){
 			log('just xcv');
 		}, 1);
 
-	$textarea.keyboard(['ctrl', 'enter'], sendmsg, 1);
+	$textarea.keyboard('ctrl+enter', sendmsg, 1);
 
 	$('#textarea input[type=submit]').click(function () {
 		var $this = $(this);
@@ -44,7 +44,7 @@ $(document).ready(function(){
 	<body>
 		<div id='textarea'>
 			<textarea cols='100' rows='3'>Нажмите ctrl-enter, поставив курсор в это текстовое поле</textarea>
-			<input act='unbind' type='submit' value='Отменить отправление по ctrl-enter' />
+			<br /><input act='unbind' type='submit' value='Отменить отправление по ctrl-enter' />
 		</div>
 		<div id='description'>
 			Нажмите сочетание клавишу 5, или ctrl+alt, x+c+v

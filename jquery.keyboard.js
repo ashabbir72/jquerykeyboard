@@ -41,7 +41,7 @@ jQuery.keyboard = {
 		// ['shift', 'ctrl'] => [16, 17]
 		var keycodes = [];
 		if (typeof keys == 'string') {
-			keys = [keys];
+			keys = keys.split('+');
 		}
 		for (var i in keys) {
 			if (typeof keys[i] == 'string') {
