@@ -334,7 +334,7 @@
 		var r = [];
 		do {
 			r.push(from);
-		} while (from++ <= to)
+		} while (from++ < to)
 		return r;
 	};
 
