@@ -61,7 +61,7 @@
 			// Controls
 			tab:  9, enter:13, shift:16, backspace:8,
 			ctrl:17, alt  :18, esc  :27, space    :32,
-			menu:93, pause:19,
+			menu:93, pause:19, cmd  :91,
 			insert  :45, home:36, pageup  :33,
 			'delete':46, end :35, pagedown:34,
 			// F*
@@ -70,12 +70,14 @@
 			// numpad
 			np0: 96, np1: 97, np2: 98, np3: 99, np4:100,
 			np5:101, np6:102, np7:103, np8:104, np9:105,
-			npslash:11, npstar:106,nphyphen:109,npplus:107,
+			npslash:11,npstar:106,nphyphen:109,npplus:107,npdot:110,
 			// Lock
 			capslock:20, numlock:144, scrolllock:145,
+			
 			// Symbols
-			equals: 61, hyphen   :109, coma :188, dot:190,
-			gravis:192, backslash:220, slash:191,
+			equals: 61, hyphen   :109, coma  :188, dot:190,
+			gravis:192, backslash:220, sbopen:219, sbclose:221,
+			slash :191, semicolon: 59, apostrophe : 222,
 			// Arrows
 			aleft:37, aup:  38, aright:39, adown:40
 		},
@@ -118,13 +120,24 @@
 			}
 		},
 		getRange : function (title) {
+			var c = $k.keyCodes;
+			var f = arguments.callee;
 			switch (title) {
-				case 'letters' : return range ($k.keyCodes['a']  ,   $k.keyCodes['z']);
-				case 'numbers' : return range ($k.keyCodes['n0'] ,   $k.keyCodes['n9']);
-				case 'numpad'  : return range ($k.keyCodes['np0'],   $k.keyCodes['np9']);
-				case 'fkeys'   : return range ($k.keyCodes['f1'] ,   $k.keyCodes['f12']);
-				case 'arrows'  : return range ($k.keyCodes['aleft'], $k.keyCodes['adown']);
-				default        : throw 'No such range: «' + title + '»';
+				case 'letters'  : return range (c['a']  ,   c['z']);
+				case 'numbers'  : return range (c['n0'] ,   c['n9']);
+				case 'numpad'   : return range (c['np0'],   c['np9']);
+				case 'fkeys'    : return range (c['f1'] ,   c['f12']);
+				case 'arrows'   : return range (c['aleft'], c['adown']);
+				case 'symbols'  : return [
+					c.equals, c.hyphen, c.coma, c.dot, c.gravis, c.backslash,
+					c.sbopen, c.sbclose, c.slash, c.semicolon, c.apostrophe,
+					c.npslash, c.npstar, c.nphyphen,c.npplus,c.npdot
+				];
+				case 'allnum'   : return f('numbers').concat(f('numpad'));
+				case 'printable': return f('letters').concat(
+				                         f('allnum') .concat(
+				                         f('symbols')))
+				default         : throw 'No such range: «' + title + '»';
 			}
 		},
 		stringGetCodes : function (str) {
