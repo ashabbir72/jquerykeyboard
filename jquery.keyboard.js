@@ -229,7 +229,7 @@
 			} else {
 				for (i = 0; i < codes.length; i++) {
 					matched = false;
-					for (k = 0; k < codes[i].lenght; k++) {
+					for (k = 0; k < codes[i].length; k++) {
 						cur = $.inArray(codes[i][k], cont);
 						if (cur >= 0) {
 							eventIndexes.push(cur);
