@@ -19,7 +19,7 @@
 			cont : [],
 			getCodes : function () {
 				var codes = [];
-				for (var i in $k.keys.cont) {
+				for (var i = 0; i < $k.keys.cont.length; i++) {
 					codes.push($k.keys.cont[i].keyCode);
 				}
 				return codes;
@@ -34,7 +34,7 @@
 				}
 			},
 			rm : function (e) {
-				for (var i in $k.keys.cont) {
+				for (var i = 0; i < $k.keys.cont.length; i++) {
 					if ($k.keys.cont[i].keyCode == e.keyCode) {
 						$k.keys.cont.splice(i, 1);
 						return;
@@ -149,7 +149,7 @@
 					.substring(1, str.length-1)
 					.replace(/\s/, '')
 					.split('|');
-				for (var i in parts) {
+				for (var i = 0; i < parts.length; i++) {
 					var p = $k.stringGetCodes(parts[i])
 					codes = codes.concat(p);
 				}
@@ -174,7 +174,7 @@
 		getCodes : function (keys) {
 			// ['shift', 'ctrl'] => [16, 17]
 			var keycodes = [];
-			for (var i in keys) {
+			for (var i = 0; i < keys.length; i++) {
 				var key = keys[i];
 				if (!isNaN(key)) { // is_numeric
 					key = [1 * key];
@@ -189,7 +189,7 @@
 		},
 		parseKeysString : function (str) {
 			var parts = str.split(',');
-			for (var i in parts) {
+			for (var i = 0; i < parts.length; i++) {
 				var string = $.trim(parts[i]);
 				parts[i] = {};
 				parts[i].order = string.indexOf('+') >= 0 ? 'strict' : 'float';
@@ -210,7 +210,7 @@
 				return false;
 			}
 			if (bind.keys.order == 'strict') {
-				for (i in cont) {
+				for (i = 0; i < cont.length; i++) {
 					if (!codes.length) {
 						break;
 					}
@@ -227,9 +227,9 @@
 				return (codes.length === 0 && cur === undefined) ?
 					eventIndexes : false;
 			} else {
-				for (i in codes) {
+				for (i = 0; i < codes.length; i++) {
 					matched = false;
-					for (k in codes[i]) {
+					for (k = 0; k < codes[i].lenght; k++) {
 						cur = $.inArray(codes[i][k], cont);
 						if (cur >= 0) {
 							eventIndexes.push(cur);
@@ -242,7 +242,7 @@
 					}
 				}
 				if (bind.cfg.strict) {
-					for (i in cont) {
+					for (i = 0; i < cont.length; i++) {
 						matched = false;
 						for (k in codes) {
 							if (inArray(cont[i], codes[k])) {
@@ -265,9 +265,9 @@
 				inArrayR (e.keyCode, bind.keys.codes);
 		},
 		checkBinds : function ($obj, e) {
-			var ei;
-			for (var i in $obj.keyboardBinds) {
-				var bind = $obj.keyboardBinds[i];
+			var ei, okb = $obj.keyboardBinds;
+			for (var i = 0; i < okb.length; i++) {
+				var bind = okb[i];
 				if (bind.cfg.event == e.originalEvent.type) {
 					ei = $k.match(bind);
 					if ( ei && $k.hasCurrent(bind, e) ) {
@@ -304,7 +304,7 @@
 				}
 				// {keys, func, cfg}
 				var parts = $k.parseKeysString(args.keys);
-				for (var i in parts) {
+				for (var i = 0; i < parts.length; i++) {
 					if (args.keys.isDelete) {
 						$obj.keyboardBinds[parts[i].index] = undefined;
 					} else {
@@ -327,7 +327,7 @@
 	}
 
 	var inArrayR = function (value, array) {
-		for (var i in array) {
+		for (var i = 0; i < array.length; i++) {
 			if (typeof array[i] == 'object' || $.isArray(array[i])) {
 				if (inArrayR(value, array[i])) {
 					return true;
@@ -352,12 +352,7 @@
 	};
 
 	var clone = function (obj) {
-		var newObj = (typeof obj[i] == 'object') ? {} : [];
-		for (var i in obj) {
-			newObj[i] = (typeof obj[i] == 'object' || $.isArray(obj[i]))
-				? clone(obj[i]) : obj[i];
-		}
-		return newObj;
+		return $.extend((typeof obj == 'object') ? {} : [], obj);
 	};
 
 	$k.init();
