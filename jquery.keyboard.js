@@ -266,7 +266,7 @@
 		},
 		checkBinds : function ($obj, e) {
 			var ei, okb = $obj.keyboardBinds;
-			for (var i = 0; i < okb.length; i++) {
+			for (var i in okb) {
 				var bind = okb[i];
 				if (bind.cfg.event == e.originalEvent.type) {
 					ei = $k.match(bind);
@@ -352,7 +352,21 @@
 	};
 
 	var clone = function (obj) {
-		return $.extend((typeof obj == 'object') ? {} : [], obj);
+		var newObj, i;
+		if ($.isArray(obj)) {
+			newObj = [];
+			for (i = 0; i < obj.length; i++) {
+				newObj[i] = (typeof obj[i] == 'object' || $.isArray(obj[i]))
+					? clone(obj[i]) : obj[i];
+			}
+		} else {
+			newObj = {};
+			for (i in obj) {
+				newObj[i] = (typeof obj[i] == 'object' || $.isArray(obj[i]))
+					? clone(obj[i]) : obj[i];
+			}
+		}
+		return newObj;
 	};
 
 	$k.init();
