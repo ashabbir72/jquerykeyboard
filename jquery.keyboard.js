@@ -268,7 +268,7 @@
 			var ei, okb = $obj.keyboardBinds;
 			for (var i in okb) {
 				var bind = okb[i];
-				if (bind.cfg.event == e.originalEvent.type) {
+				if (bind && bind.cfg.event == e.originalEvent.type) {
 					ei = $k.match(bind);
 					if ( ei && $k.hasCurrent(bind, e) ) {
 						var backup = $obj.keyboardFunc;
@@ -305,7 +305,7 @@
 				// {keys, func, cfg}
 				var parts = $k.parseKeysString(args.keys);
 				for (var i = 0; i < parts.length; i++) {
-					if (args.keys.isDelete) {
+					if (args.isDelete) {
 						$obj.keyboardBinds[parts[i].index] = undefined;
 					} else {
 						$obj.keyboardBinds[parts[i].index] = clone(args);
